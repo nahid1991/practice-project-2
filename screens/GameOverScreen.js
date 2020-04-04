@@ -20,7 +20,7 @@ const GameOverScreen = props => {
 			<NumberContainer>{props.guessRounds}</NumberContainer>
 			<Text style={{ fontFamily: "saira-stencil" }}>Number was: </Text>
 			<NumberContainer>{props.userNumber}</NumberContainer>
-      <CustomButton onPress={props.onRestart} color={Colors.primary}>
+      <CustomButton onPress={props.onRestart} color={Colors.primary} font="saira-stencil">
         START NEW GAME
       </CustomButton>
 		</View>

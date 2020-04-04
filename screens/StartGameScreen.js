@@ -13,6 +13,7 @@ import Colors from "../constants/colors";
 import Input from "../components/Input";
 import NumberContainer from "../components/NumberContainer";
 import CustomButton from "../components/CustomButton";
+import {MaterialIcons, SimpleLineIcons} from "@expo/vector-icons";
 
 const StartGameScreen = props => {
 	const [enteredValue, setEnteredValue] = useState("");
@@ -57,7 +58,7 @@ const StartGameScreen = props => {
 					color={Colors.primary}
           font="saira-stencil"
 				>
-					START GAME
+					<SimpleLineIcons name="control-play" size={24}/>
 				</CustomButton>
 				{/* <Button title="START GAME" onPress={() => props.onStartGame(selectedNumber)}/> */}
 			</Card>
@@ -86,12 +87,12 @@ const StartGameScreen = props => {
 					<View style={Styles.buttonContainer}>
 						<View style={Styles.button}>
 							<CustomButton onPress={resetButtonHandler} color={Colors.accent} font="saira-stencil">
-								Reset
+              <MaterialIcons name="clear" size={24}/>
 							</CustomButton>
 						</View>
 						<View style={Styles.button}>
 							<CustomButton onPress={confirmButtonHandler} color={Colors.primary} font="saira-stencil">
-								Confirm
+               <MaterialIcons name="check" size={24}/>
 							</CustomButton>
 						</View>
 					</View>

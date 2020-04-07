@@ -165,7 +165,8 @@ const Styles = StyleSheet.create({
 	input: {
 		width: 50,
 		textAlign: "center",
-		fontFamily: "saira-stencil"
+    fontFamily: "saira-stencil",
+    marginVertical: 10
 	},
 	summaryContainer: {
 		marginTop: 30,

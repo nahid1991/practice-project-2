@@ -26,117 +26,129 @@ const GameOverScreen = props => {
 		};
 	});
 
+	let wordContainer = (
+		<View>
+			<CustomText>The game is over!</CustomText>
+			<View
+				style={{
+					height: Dimensions.get("window").width * 0.3,
+					width: Dimensions.get("window").width * 0.3,
+					borderRadius: Dimensions.get("window").width * 0.15,
+					...Styles.imageContainer
+				}}
+			>
+				<Image
+					source={require("../assets/original.png")}
+					style={Styles.image}
+					resizeMode="cover"
+				/>
+			</View>
+			<CustomText>Number of rounds: {props.guessRounds + 1}</CustomText>
+			<CustomText>The number was: {props.userNumber}</CustomText>
+			<CustomText>Guesses that were made!</CustomText>
+		</View>
+	);
+
+	let guessContainer = (
+		<View>
+			<View
+				style={{
+					...Styles.guessContainer,
+					width: "80%",
+					height: Dimensions.get("window").height * 0.45
+				}}
+			>
+				<CustomText>Guesses that were made!</CustomText>
+				<ScrollView
+					contentContainerStyle={{
+						...Styles.scroll,
+						width: Dimensions.get("window").width / 1.3
+					}}
+				>
+					{props.guesses.reverse().map((guess, i) => {
+						let j = i;
+						return (
+							<Card styles={Styles.guessCount} key={i}>
+								<CustomText>#{j + 1}</CustomText>
+								<CustomText>{guess}</CustomText>
+							</Card>
+						);
+					})}
+				</ScrollView>
+			</View>
+			<CustomButton
+				onPress={props.onRestart}
+				color={Colors.primary}
+				font="saira-stencil"
+			>
+				START NEW GAME
+			</CustomButton>
+		</View>
+	);
+
 	if (availableDeviceHeight <= availableDeviceWidth) {
-		return (
-			<ScrollView>
-				<View style={Styles.screenLandscape}>
-					<View style={Styles.wordContainer}>
-						<CustomText>The game is over!</CustomText>
-						<View
-							style={{
-								...Styles.imageContainerLandscape,
-								height: Dimensions.get("window").width * 0.2,
-								width: Dimensions.get("window").width * 0.2,
-								borderRadius: Dimensions.get("window").width * 0.1
-							}}
-						>
-							<Image
-								source={require("../assets/original.png")}
-								style={Styles.image}
-								resizeMode="cover"
-							/>
-						</View>
-						<CustomText>Number of rounds: {props.guessRounds + 1}</CustomText>
-						<CustomText>The number was: {props.userNumber}</CustomText>
-						<CustomText>Guesses that were made!</CustomText>
-					</View>
-					<View style={Styles.resultContainer}>
-						<View
-							style={{
-								...Styles.guessContainerLandscape,
-								maxHeight: Dimensions.get("window").height * 0.6
-							}}
-						>
-							<ScrollView contentContainerStyle={Styles.scrollLandscape}>
-								{props.guesses.reverse().map((guess, i) => {
-									let j = i;
-									return (
-										<Card styles={Styles.guessCount} key={i}>
-											<CustomText>#{j + 1}</CustomText>
-											<CustomText>{guess}</CustomText>
-										</Card>
-									);
-								})}
-							</ScrollView>
-						</View>
-						<CustomButton
-							onPress={props.onRestart}
-							color={Colors.primary}
-							font="saira-stencil"
-						>
-							START NEW GAME
-						</CustomButton>
-					</View>
+		wordContainer = (
+			<View style={Styles.wordContainer}>
+				<CustomText>The game is over!</CustomText>
+				<View
+					style={{
+						...Styles.imageContainerLandscape,
+						height: Dimensions.get("window").width * 0.2,
+						width: Dimensions.get("window").width * 0.2,
+						borderRadius: Dimensions.get("window").width * 0.1
+					}}
+				>
+					<Image
+						source={require("../assets/original.png")}
+						style={Styles.image}
+						resizeMode="cover"
+					/>
 				</View>
-			</ScrollView>
+				<CustomText>Number of rounds: {props.guessRounds + 1}</CustomText>
+				<CustomText>The number was: {props.userNumber}</CustomText>
+				<CustomText>Guesses that were made!</CustomText>
+			</View>
 		);
-	} else {
-		return (
-			<ScrollView>
-				<View style={Styles.screen}>
-					<CustomText>The game is over!</CustomText>
-					<View
-						style={{
-							height: Dimensions.get("window").width * 0.3,
-							width: Dimensions.get("window").width * 0.3,
-              borderRadius: Dimensions.get("window").width * 0.15,
-							...Styles.imageContainer,
-						}}
-					>
-						<Image
-							source={require("../assets/original.png")}
-							style={Styles.image}
-							resizeMode="cover"
-						/>
-					</View>
-					<CustomText>Number of rounds: {props.guessRounds + 1}</CustomText>
-					<CustomText>The number was: {props.userNumber}</CustomText>
-					<CustomText>Guesses that were made!</CustomText>
-					<View
-						style={{
-							...Styles.guessContainer,
-							width: "80%",
-							height: Dimensions.get("window").height * 0.45
-						}}
-					>
-						<ScrollView
-							contentContainerStyle={{
-								...Styles.scroll,
-								width: Dimensions.get("window").width / 1.3,
-							}}
-						>
-							{props.guesses.reverse().map((guess, i) => {
-								let j = i;
-								return (
-									<Card styles={Styles.guessCount} key={i}>
-										<CustomText>#{j + 1}</CustomText>
-										<CustomText>{guess}</CustomText>
-									</Card>
-								);
-							})}
-						</ScrollView>
-					</View>
-					<CustomButton
-						onPress={props.onRestart}
-						color={Colors.primary}
-						font="saira-stencil"
-					>
-						START NEW GAME
-					</CustomButton>
+
+		guessContainer = (
+			<View style={Styles.resultContainer}>
+				<View
+					style={{
+						...Styles.guessContainerLandscape,
+						maxHeight: Dimensions.get("window").height * 0.6
+					}}
+				>
+					<ScrollView contentContainerStyle={Styles.scrollLandscape}>
+						{props.guesses.reverse().map((guess, i) => {
+							let j = i;
+							return (
+								<Card styles={Styles.guessCount} key={i}>
+									<CustomText>#{j + 1}</CustomText>
+									<CustomText>{guess}</CustomText>
+								</Card>
+							);
+						})}
+					</ScrollView>
 				</View>
-			</ScrollView>
+				<CustomButton
+					onPress={props.onRestart}
+					color={Colors.primary}
+					font="saira-stencil"
+				>
+					START NEW GAME
+				</CustomButton>
+			</View>
 		);
-	}
+  }
+  
+	return (
+		<ScrollView>
+			<View style={availableDeviceHeight <= availableDeviceWidth ? Styles.screenLandscape : Styles.screen}>
+				{wordContainer}
+				{guessContainer}
+			</View>
+		</ScrollView>
+	);
 };
 
 const Styles = StyleSheet.create({

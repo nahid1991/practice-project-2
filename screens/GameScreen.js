@@ -82,125 +82,132 @@ const GameScreen = props => {
 		});
 	};
 
+	let numbersAndButtons = (
+		<View>
+			<CustomText style={Styles.title}>Opponent's Guess</CustomText>
+			<NumberContainer>{currentGuesses[0]}</NumberContainer>
+			<Card
+				styles={{
+					...Styles.buttonContainer,
+					marginTop: Dimensions.get("window").height > 600 ? 20 : 10,
+					width: "80%",
+					maxHeight: "30%"
+				}}
+			>
+				<CustomButton
+					onPress={nextGuessHandler.bind(this, "lower")}
+					color={Colors.accent}
+					font="saira-stencil"
+				>
+					<Ionicons name="md-remove" size={24} />
+				</CustomButton>
+				<CustomButton
+					onPress={nextGuessHandler.bind(this, "greater")}
+					color={Colors.primary}
+					font="saira-stencil"
+				>
+					<Ionicons name="md-add" size={24} />
+				</CustomButton>
+			</Card>
+		</View>
+	);
+
 	if (availableDeviceHeight <= availableDeviceWidth) {
-		return (
-			<ScrollView>
-				<View style={Styles.screenLandscape}>
-					<View
-						style={{
-							flexDirection: "column",
-							alignItems: "center",
-							width: "40%"
-						}}
+		numbersAndButtons = (
+			<View
+				style={{
+					flexDirection: "column",
+					alignItems: "center",
+					width: "40%"
+				}}
+			>
+				<CustomText style={Styles.title}>Opponent's Guess</CustomText>
+				<View
+					style={{
+						...Styles.inputContainer,
+						width: Dimensions.get("window").width / 2
+					}}
+				>
+					<CustomButton
+						onPress={nextGuessHandler.bind(this, "lower")}
+						color={Colors.accent}
+						font="saira-stencil"
+						style={{ marginHorizontal: 20 }}
 					>
-						<CustomText style={Styles.title}>Opponent's Guess</CustomText>
-						<View
-							style={{
-								...Styles.inputContainer,
-								width: Dimensions.get("window").width / 2
-							}}
-						>
-							<CustomButton
-								onPress={nextGuessHandler.bind(this, "lower")}
-								color={Colors.accent}
-								font="saira-stencil"
-								style={{ marginHorizontal: 20 }}
-							>
-								<Ionicons name="md-remove" size={24} />
-							</CustomButton>
-							<NumberContainer>{currentGuesses[0]}</NumberContainer>
-							<CustomButton
-								onPress={nextGuessHandler.bind(this, "greater")}
-								color={Colors.primary}
-								font="saira-stencil"
-								style={{ marginHorizontal: 20 }}
-							>
-								<Ionicons name="md-add" size={24} />
-							</CustomButton>
-						</View>
-					</View>
-					<View
-						style={{
-							...Styles.guessContainerLandscape,
-							maxHeight: Dimensions.get("window").height * 0.6
-						}}
-					>
-						<ScrollView
-							contentContainerStyle={{
-								width: Dimensions.get("window").width * 0.5,
-								...Styles.scrollLandscape
-							}}
-						>
-							{currentGuesses.map((guess, i) => {
-								return (
-									<Card styles={Styles.guessCountLandscape} key={i}>
-										<CustomText>#{rounds - i + 1}</CustomText>
-										<CustomText>{guess}</CustomText>
-									</Card>
-								);
-							})}
-						</ScrollView>
-					</View>
-				</View>
-			</ScrollView>
-		);
-	} else {
-		return (
-			<ScrollView>
-				<View style={Styles.screen}>
-					<CustomText style={Styles.title}>Opponent's Guess</CustomText>
+						<Ionicons name="md-remove" size={24} />
+					</CustomButton>
 					<NumberContainer>{currentGuesses[0]}</NumberContainer>
-					<Card
-						styles={{
-							...Styles.buttonContainer,
-							marginTop: Dimensions.get("window").height > 600 ? 20 : 10,
-							width: "80%",
-              maxHeight: "30%"
-						}}
+					<CustomButton
+						onPress={nextGuessHandler.bind(this, "greater")}
+						color={Colors.primary}
+						font="saira-stencil"
+						style={{ marginHorizontal: 20 }}
 					>
-						<CustomButton
-							onPress={nextGuessHandler.bind(this, "lower")}
-							color={Colors.accent}
-							font="saira-stencil"
-						>
-							<Ionicons name="md-remove" size={24} />
-						</CustomButton>
-						<CustomButton
-							onPress={nextGuessHandler.bind(this, "greater")}
-							color={Colors.primary}
-							font="saira-stencil"
-						>
-							<Ionicons name="md-add" size={24} />
-						</CustomButton>
-					</Card>
-					<View
-						style={{
-							...Styles.guessContainer,
-							width: "80%",
-              maxHeight: "60%",
-              height: Dimensions.get("window").height * 0.45
-						}}
-					>
-						<ScrollView
-							contentContainerStyle={{
-								width: Dimensions.get("window").width / 1.4,
-								...Styles.scroll
-							}}
-						>
-							{currentGuesses.map((guess, i) => {
-								return (
-									<Card styles={Styles.guessCount} key={i}>
-										<CustomText>#{rounds - i + 1}</CustomText>
-										<CustomText>{guess}</CustomText>
-									</Card>
-								);
-							})}
-						</ScrollView>
-					</View>
+						<Ionicons name="md-add" size={24} />
+					</CustomButton>
 				</View>
-			</ScrollView>
+			</View>
 		);
 	}
+
+	return (
+		<ScrollView>
+			<View
+				style={
+					availableDeviceHeight <= availableDeviceWidth
+						? Styles.screenLandscape
+						: Styles.screen
+				}
+			>
+				{numbersAndButtons}
+				<View
+					style={
+						availableDeviceHeight <= availableDeviceWidth
+							? {
+									...Styles.guessContainerLandscape,
+									maxHeight: Dimensions.get("window").height * 0.6
+							  }
+							: {
+									...Styles.guessContainer,
+									width: "80%",
+									maxHeight: "60%",
+									height: Dimensions.get("window").height * 0.45
+							  }
+					}
+				>
+					<ScrollView
+						contentContainerStyle={
+							availableDeviceHeight <= availableDeviceWidth
+								? {
+										width: Dimensions.get("window").width * 0.5,
+										...Styles.scrollLandscape
+								  }
+								: {
+										width: Dimensions.get("window").width / 1.4,
+										...Styles.scroll
+								  }
+						}
+					>
+						{currentGuesses.map((guess, i) => {
+							return (
+								<Card
+									styles={
+										availableDeviceHeight <= availableDeviceWidth
+											? Styles.guessCountLandscape
+											: Styles.guessCount
+									}
+									key={i}
+								>
+									<CustomText>#{rounds - i + 1}</CustomText>
+									<CustomText>{guess}</CustomText>
+								</Card>
+							);
+						})}
+					</ScrollView>
+				</View>
+			</View>
+		</ScrollView>
+	);
 };
 
 const Styles = StyleSheet.create({

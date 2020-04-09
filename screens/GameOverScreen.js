@@ -27,8 +27,8 @@ const GameOverScreen = props => {
 	});
 
 	let wordContainer = (
-		<View>
-			<CustomText>The game is over!</CustomText>
+		<View style={{alignItems: "center"}}>
+			<CustomText style={Styles.title}>The game is over!</CustomText>
 			<View
 				style={{
 					height: Dimensions.get("window").width * 0.3,
@@ -50,15 +50,15 @@ const GameOverScreen = props => {
 	);
 
 	let guessContainer = (
-		<View>
-			<View
-				style={{
-					...Styles.guessContainer,
-					width: "80%",
-					height: Dimensions.get("window").height * 0.45
-				}}
-			>
-				<CustomText>Guesses that were made!</CustomText>
+		<View
+			style={{
+        flexGrow: 1,
+				width: "80%",
+				height: Dimensions.get("window").height * 0.30,
+        alignItems: "center"
+			}}
+		>
+			<View style={{...Styles.guessContainer, height: Dimensions.get("window").height * 0.39}}>
 				<ScrollView
 					contentContainerStyle={{
 						...Styles.scroll,
@@ -80,6 +80,7 @@ const GameOverScreen = props => {
 				onPress={props.onRestart}
 				color={Colors.primary}
 				font="saira-stencil"
+        style={{width: "70%"}}
 			>
 				START NEW GAME
 			</CustomButton>
@@ -89,7 +90,7 @@ const GameOverScreen = props => {
 	if (availableDeviceHeight <= availableDeviceWidth) {
 		wordContainer = (
 			<View style={Styles.wordContainer}>
-				<CustomText>The game is over!</CustomText>
+				<CustomText style={Styles.title}>The game is over!</CustomText>
 				<View
 					style={{
 						...Styles.imageContainerLandscape,
@@ -122,7 +123,7 @@ const GameOverScreen = props => {
 						{props.guesses.reverse().map((guess, i) => {
 							let j = i;
 							return (
-								<Card styles={Styles.guessCount} key={i}>
+								<Card styles={{...Styles.guessCount}} key={j}>
 									<CustomText>#{j + 1}</CustomText>
 									<CustomText>{guess}</CustomText>
 								</Card>
@@ -139,11 +140,17 @@ const GameOverScreen = props => {
 				</CustomButton>
 			</View>
 		);
-  }
-  
+	}
+
 	return (
-		<ScrollView>
-			<View style={availableDeviceHeight <= availableDeviceWidth ? Styles.screenLandscape : Styles.screen}>
+		<ScrollView contentContainerStyle={{flex: 1}}>
+			<View
+				style={
+					availableDeviceHeight <= availableDeviceWidth
+						? Styles.screenLandscape
+						: Styles.screen
+				}
+			>
 				{wordContainer}
 				{guessContainer}
 			</View>
@@ -152,6 +159,10 @@ const GameOverScreen = props => {
 };
 
 const Styles = StyleSheet.create({
+	title: {
+		fontSize: 20,
+		marginVertical: 10
+	},
 	screen: {
 		flex: 1,
 		justifyContent: "center",
@@ -179,7 +190,6 @@ const Styles = StyleSheet.create({
 		width: "40%"
 	},
 	guessContainer: {
-		flexGrow: 1,
 		alignItems: "center",
 		backgroundColor: "#ddd",
 		borderRadius: 20

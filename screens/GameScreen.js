@@ -83,15 +83,20 @@ const GameScreen = props => {
 	};
 
 	let numbersAndButtons = (
-		<View>
+		<View
+			style={{
+				flexDirection: "column",
+				alignItems: "center",
+				width: "100%"
+			}}
+		>
 			<CustomText style={Styles.title}>Opponent's Guess</CustomText>
 			<NumberContainer>{currentGuesses[0]}</NumberContainer>
 			<Card
 				styles={{
 					...Styles.buttonContainer,
 					marginTop: Dimensions.get("window").height > 600 ? 20 : 10,
-					width: "80%",
-					maxHeight: "30%"
+					width: "80%"
 				}}
 			>
 				<CustomButton
@@ -151,7 +156,7 @@ const GameScreen = props => {
 	}
 
 	return (
-		<ScrollView>
+		<ScrollView contentContainerStyle={{flex: 1}}>
 			<View
 				style={
 					availableDeviceHeight <= availableDeviceWidth
@@ -180,11 +185,14 @@ const GameScreen = props => {
 							availableDeviceHeight <= availableDeviceWidth
 								? {
 										width: Dimensions.get("window").width * 0.5,
-										...Styles.scrollLandscape
+										...Styles.scrollLandscape,
+                    flexGrow: 1
 								  }
 								: {
 										width: Dimensions.get("window").width / 1.4,
-										...Styles.scroll
+                    height: Dimensions.get('window').height * 0.45,
+										...Styles.scroll,
+                    flexGrow: 1
 								  }
 						}
 					>
@@ -211,6 +219,10 @@ const GameScreen = props => {
 };
 
 const Styles = StyleSheet.create({
+  title: {
+		fontSize: 20,
+		marginVertical: 10
+	},
 	inputContainer: {
 		flexDirection: "row",
 		alignItems: "center",
@@ -263,7 +275,7 @@ const Styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: "column",
 		padding: 10,
-		alignItems: "center"
+		alignItems: "center",
 	},
 	buttonContainer: {
 		flexDirection: "row",

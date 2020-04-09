@@ -54,11 +54,10 @@ const GameOverScreen = props => {
 			style={{
         flexGrow: 1,
 				width: "80%",
-				height: Dimensions.get("window").height * 0.30,
         alignItems: "center"
 			}}
 		>
-			<View style={{...Styles.guessContainer, height: Dimensions.get("window").height * 0.39}}>
+			<View style={{...Styles.guessContainer, flex: 1}}>
 				<ScrollView
 					contentContainerStyle={{
 						...Styles.scroll,
@@ -66,10 +65,10 @@ const GameOverScreen = props => {
 					}}
 				>
 					{props.guesses.reverse().map((guess, i) => {
-						let j = i;
+            let j = i;
 						return (
-							<Card styles={Styles.guessCount} key={i}>
-								<CustomText>#{j + 1}</CustomText>
+							<Card styles={Styles.guessCount} key={j}>
+								<CustomText>#{i + 1}</CustomText>
 								<CustomText>{guess}</CustomText>
 							</Card>
 						);
@@ -190,6 +189,7 @@ const Styles = StyleSheet.create({
 		width: "40%"
 	},
 	guessContainer: {
+    flexGrow: 1,
 		alignItems: "center",
 		backgroundColor: "#ddd",
 		borderRadius: 20

@@ -175,8 +175,7 @@ const GameScreen = props => {
 							: {
 									...Styles.guessContainer,
 									width: "80%",
-									maxHeight: "60%",
-									height: Dimensions.get("window").height * 0.45
+                  flex: 1
 							  }
 					}
 				>
@@ -185,14 +184,11 @@ const GameScreen = props => {
 							availableDeviceHeight <= availableDeviceWidth
 								? {
 										width: Dimensions.get("window").width * 0.5,
-										...Styles.scrollLandscape,
-                    flexGrow: 1
+										...Styles.scrollLandscape
 								  }
 								: {
 										width: Dimensions.get("window").width / 1.4,
-                    height: Dimensions.get('window').height * 0.45,
-										...Styles.scroll,
-                    flexGrow: 1
+										...Styles.scroll
 								  }
 						}
 					>
